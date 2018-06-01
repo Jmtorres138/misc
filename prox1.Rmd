@@ -1,0 +1,47 @@
+---
+title: "PROX1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Setup 
+
+```{r}
+
+"%&%" <- function(a,b) paste0(a,b)
+
+library("tidyverse");library("data.table")
+library("GenomicRanges")
+
+serv.dir <- "/home/jason/science/servers/FUSE/"
+tf.dir <- serv.dir %&% "reference/islet/islet_TF/"
+
+tf.df <- fread(tf.dir %&% "islet.TFs.incl_chr.bed")
+
+# hg19: chr1:214,159,100-214,159,410
+filter(tf.df,V1=="chr1",V2<=214159410,V3>=214159100)# zero 
+filter(tf.df,V1=="chr1",V2<=214159100,V3>=214159410) # zero 
+
+```
+> > library(Biostrings)
+> > library(GenomicRanges)
+> > mirs <- GRanges( paste('chr', mirInfo[i,1], sep=''),
+> >                 IRanges(start=mirInfo[i,4], width=1),
+> >                 strand=whereverYouKeepTheStrand )
+> > upstream <- flank(mirs, 200)
+> > upseqs <- Views(Rnorvegicus, mirs)
+> > show(upseqs)
+> >
+
+
+```{r}
+library("Biostrings")
+library("GenomicRanges")
+
+gr <- GRanges(seq="chr1",IRanges(214159100,214159410))
+
+```
+
